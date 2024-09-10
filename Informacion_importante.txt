@@ -1,0 +1,78 @@
+
+
+/*************   ANOTACIONES DESARROLLO   ************/
+
+1. Modifica el nombre de la carpeta y del archivo principal del plugin
+
+2. Modifica todos los datos referentes a la descripción del plugin en el archivo principal
+
+3. Sustituye las iniciales que tendrán todas las funciones del plugin (Mínimo 6 letras) Actualmente SACAIG
+
+4. Modifica y/o añade las constantes necesarias en el archivo principal del plugin
+
+
+5. Si necesitamos crear un custom_field para la landing en el backoffice del producto, para ofrecer un desarrollo a medida en función del valor definido en el post, modifica la función _agregar_campo_acf() para generar los custom fields necearios. SI NO NECESITAMOS ESTA FUNCION, la borramos
+
+6. Si necesitamos crear alguna tabla en la base de datos ajustamos la función _crear_tablas_plugin() y _eliminar_tablas_plugin, de lo contrario, podemos eliminarla del archivo. SI NO NECESITAMOS ESTA FUNCION, la borramos
+
+
+7. Modifica el archivo /utils/paginas-crear-caracteristicas.php con las páginas de que constará la aplicación.Recuerda añadir las iniciales al final del slug que has creado para este plugin en exclusiva ( esto evita generar multiples paginas con igual slug). Las páginas que recogen datos, siempre como no indexables ni visibles en búsquedas.
+
+8. En /templates, cambiar el slug de la página de agradecimiento
+
+
+8. Renombrar en /css y /js, los archivos con el prefijo elegido para el desarrollo de este plugin
+
+
+9. Si necesitamos alguna librería externa modificamos las funciones _api_plugin_enqueue_scripts y _consejos_enqueue_styles
+
+
+10. En parts/steps-form, colocamos tantos pasos como pantallas tendrá la aplicación.
+
+
+11. Ir a SPCTFA_scripts.js y en:
+	- Línea 275, si solo se muestra un precio indicar la pantalla en que ocurre.
+	- Línea 286, realizamos los ajustes para la validación de los términos y condiciones.
+	-  línea 310 y ajustar pantllas con aside 
+
+
+11. Ir a templates/landing-producto-template.php y crear la landing del producto. (ver anexo)
+	- En caso de api, mostramos al menos 1 precio desde con las principales coberturas en la comparativa, tratar de que siempre existan al menos 2 comparando las coberturas.
+	-	Botones con el texto (simular seguro, calcular seguro, contratar seguro)
+	- Utilizar iconos de la carpeta streamline, primero buscar por nombre en https://www.streamlinehq.com/illustrations/illustrations-duotone para encontrarlas. 
+
+
+12. Si el producto no funciona con una API, generamos una tabla que almacene toda la información relativa a las pólizas disponibles, los precios y sus coberturas. Luego cargamos esta información directamente en las templates de las diferentes pantallas que conformen el plugin.
+
+
+13. En templates, crear las diferentes páginas de que constará el plugin (ver anexo)
+
+14. IR a parts/aside, y colocar las principales coberturas así como sus valores (dinámicamente si vienen desde la api, o existen diferetes pólizas que pueda elegir el usuario.)
+
+
+15. Instala el plugin y actívalo
+
+16.Verifica está instalado composer en el servidor
+	Abre una terminal, navega a la carpeta del plugin y inicializa Composer: cd wp-content/plugins/mi-plugin  composer init
+	Añadir las dependencias necesarias a través de composer.json y actualizar composer. 
+
+
+17. Modificar la función que envía los correos personalizados del producto y la plantilla en /templates/plantilla-email.php
+
+18. Añadir en la carpeta DOCUMENTACIÓN SEGURO, toda la información relativa al seguro que tenemos, tanto comercial como para el desarrollo.
+
+
+19. Revisa todos los alt y que todas ls constantes tengan el prefijo corecto
+
+
+
+VER TEMA CREACIÓN DE PROYECTOS
+VER TEMA REGISTROS INSUGURU
+VER TEMA FIRMAS DIGITALES EN CASO DE QUE SEA NECESARIO
+
+
+
+/******************  ANOTACIONES INSTALACIÓN  *******************/
+
+En el archivo principal del plugin, modifica las constantes referentes a la compañía donde instalas el plugin.
+

@@ -1,0 +1,6 @@
+{
+    "require": {
+        "knplabs/knp-snappy": "^1.5",
+        "mikehaertl/php-pdftk": "^0.13.1"
+    }
+}
