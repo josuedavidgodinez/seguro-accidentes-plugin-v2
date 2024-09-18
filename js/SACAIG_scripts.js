@@ -68,6 +68,8 @@ let contadorVerificacionesFirma = 0;
 function SACAIG_verificarEstadoTransaccion(request_id, signature_id, signatory_id, email_asegurado, link_poliza_firmada, name_asegurado) {
 
     if (contadorVerificacionesFirma < 90) {
+        contadorVerificacionesFirma++;
+
         let formData = new FormData();
 
         formData.append("action", "SACAIG_verifica_status_proc_firma");
@@ -93,7 +95,6 @@ function SACAIG_verificarEstadoTransaccion(request_id, signature_id, signatory_i
                 
                 const {status} = data;
 
-                    contadorVerificacionesFirma ++
 
                     if(!status){
                         setTimeout(()=>{
@@ -103,6 +104,7 @@ function SACAIG_verificarEstadoTransaccion(request_id, signature_id, signatory_i
                         let codigoint = parseInt(status);
 
                         if (codigoint >= 101 && codigoint != 900) {
+                            contadorVerificacionesFirma = 0;
                             Swal.fire({
                                 title: 'Error!',
                                 text: 'Se generó un error 1 desconocido para terminar de contratar tu seguro.',
@@ -119,6 +121,7 @@ function SACAIG_verificarEstadoTransaccion(request_id, signature_id, signatory_i
                         }
                     }
                 } else {
+                    contadorVerificacionesFirma = 0;
                     Swal.fire({
                         title: 'Error!',
                         text: 'Se generó un error 2 desconocido para terminar de contratar tu seguro.',
@@ -128,6 +131,7 @@ function SACAIG_verificarEstadoTransaccion(request_id, signature_id, signatory_i
                 }
             },
             error: function (xhr, status, error) {
+                contadorVerificacionesFirma = 0 ;
                 Swal.fire({
                     title: 'Error!',
                     text: 'Se generó un error 3 desconocido para terminar de contratar tu seguro.',
@@ -137,6 +141,7 @@ function SACAIG_verificarEstadoTransaccion(request_id, signature_id, signatory_i
             }
         });
     }else{
+        contadorVerificacionesFirma = 0;
         Swal.fire({
             title: 'Error!',
             text: 'Has agotado el tiempo de espera para la firma del documento.',

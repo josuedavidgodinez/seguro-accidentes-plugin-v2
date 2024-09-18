@@ -112,9 +112,9 @@ function SACAIG_iniciar_proceso_firma($email, $telefono, $nombre, $apellido, $fi
             if (isset($decoded_response['request_id'])) {
                 
                 //Obtenemos los valores en especifico segun sus niveles de como responda la API
-                $request_id = $decoded_response['request_id'];
-                $signature_id =  $decoded_response['signature']['signature_id'];
-                $signatory_id =  $decoded_response['signature']['signatories'][0]['signatory_id'];
+                $request_id = strval($decoded_response['request_id']);
+                $signature_id = strval($decoded_response['signature']['signature_id']); // Convertir a cadena
+                $signatory_id = strval($decoded_response['signature']['signatories'][0]['signatory_id']); // Convertir a cadena
                 
                 return [
                     //Retornamos estas 3 variables al metodo llenar-pdf.php
