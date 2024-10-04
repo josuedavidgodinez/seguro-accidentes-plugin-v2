@@ -26,6 +26,11 @@ function collectFormData() {
                     continue;
                 }
 
+                if (element.type === 'checkbox') {
+                    data[element.name] = element.checked;
+                    continue;
+                }         
+
                 // Añadimos el valor al objeto de datos
                 data[element.name] = element.value;
             }
@@ -112,6 +117,8 @@ function SACAIG_verificarEstadoTransaccion(request_id, signature_id, signatory_i
                                 confirmButtonText: 'OK'
                             });
                         } else {
+                            const policy_data_sacaig = sessionStorage.getItem('policy_data_sacaig');
+                            insu_registrar_contract(policy_data_sacaig,signature_id);
                             // Enviar el correo antes de redirigir
                             $('#enviarCorreoBtn').prop('disabled', true); // Deshabilitar el botón mientras se procesa
                            
@@ -553,6 +560,8 @@ $(document).ready(function() {
             });
         } else {
             let dataForm = collectFormData();
+            console.log(dataForm);
+            insu_patch_lead(dataForm.suscripcion_pub);
 
             // Muestra el loader
             $('#loader-simple').css('display', 'block');
@@ -584,6 +593,8 @@ $(document).ready(function() {
                         sessionStorage.setItem('email_to_asegurar', responsedataUsr.email);
 
                         insu_registrar_proyecto(response.data.respuesta.url_proyecto);
+
+                        sessionStorage.setItem('policy_data_sacaig', JSON.stringify(dataForm));
 
                         // Redirigir a otra página
                         window.location.href = '/firma-seguro-accidentes/';

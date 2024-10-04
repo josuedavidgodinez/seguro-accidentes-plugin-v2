@@ -1228,6 +1228,7 @@ function SACAIG_enviar_correo_poliza_cron($email_asegurado,$signature_id,$reques
    $site_url = get_site_url(); // Obtén la URL base del sitio
    $file_url = str_replace('/home/runcloud/webapps/tresmares_pruebas/wp-content', $site_url . '/wp-content', $file_path);
 
+   insu_patch_contratacion_insuguru($file_url,$signature_id);
    // Enviar el correo
    $resultado = SACAIG_EnvioCorreoPoliza($email_asegurado, $file_url);
 
