@@ -27,19 +27,4 @@
 	<div class="step9_asegura steps_asegura_forms">
 	</div>
 
-	<div class="step10_asegura steps_asegura_forms">
-	</div>
-
-	<div class="step11_asegura steps_asegura_forms">
-	</div>
-
-	<div class="step12_asegura steps_asegura_forms">
-	</div>
-
-	<div class="step13_asegura steps_asegura_forms">
-	</div>
-
-	<div class="step14_asegura steps_asegura_forms">
-	</div>
-
 </div>	

@@ -47,8 +47,8 @@
             $response_body = wp_remote_retrieve_body($response);
             $response_code = wp_remote_retrieve_response_code($response);
 
-            error_log("REQUEST OBTENER DOCUMENTO>>".json_encode($body));
-            error_log("RESPONSE OBTENER DOCUMENTO>>".$response_body);
+            // error_log("REQUEST OBTENER DOCUMENTO>>".json_encode($body));
+            // error_log("RESPONSE OBTENER DOCUMENTO>>".$response_body);
     
             if ($response_code == 200) {
                 // Decodificar el cuerpo de la respuesta

@@ -857,10 +857,9 @@ add_action('wp_enqueue_scripts', 'SACAIG_consejos_enqueue_styles', 100);
 
 
 function SACAIG_api_plugin_enqueue_scripts() {
-
-   insu_encolar_script_insuguru(SACAIG_INSU_PRODUCT_ID);
-
    if (SACAIG_check_required_page()) {
+      insu_encolar_script_insuguru(SACAIG_INSU_PRODUCT_ID);
+
       if (!wp_script_is(SACAIG_SLUG_LANDING_PRODUCTO.'-script', 'enqueued')) {
          wp_enqueue_script(SACAIG_SLUG_LANDING_PRODUCTO.'-script', plugins_url('/js/SACAIG_scripts.js', __FILE__), array('jquery'), '1.0', true);
          wp_localize_script(SACAIG_SLUG_LANDING_PRODUCTO.'-script', 'miAjax', array(
@@ -902,7 +901,7 @@ function SACAIG_procesar_poliza() {
       $response['error'] = __('No se proporcionó la póliza', 'seguro-accidentes-aig');
    } else {
       $tipo_poliza = $_POST['poliza'];
-      $profesion = $_POST['profesion'];
+      $profesion = sacaig_profesiones_byid($_POST['profesion']);
       $actividad_maual = $_POST['actividad_maual'] ;
       $descr_trabajo_manual = $_POST['descr_trabajo_manual'] ?? "";
       $enf_cardiaca = $_POST['enf_cardiaca'];
@@ -925,7 +924,7 @@ function SACAIG_procesar_poliza() {
       $fecha_efecto_solicitada_asegurado = $_POST['fecha_efecto_solicitada'];
 
       // Datos del tomador
-      $tomador = isset($_POST['tomador']) ? true : false;
+      $tomador = isset($_POST['identificador_tomador']) ? true : false;
       $beneficiarios = isset($_POST['beneficiarios']) ? true : false;
       $nombre_tomador = $_POST['nombre_tomador'] ?? "";
       $apellidos_tomador = $_POST['apellidos_tomador'] ?? "";
@@ -1106,88 +1105,92 @@ add_action('wp_ajax_nopriv_SACAIG_verifica_status_proc_firma', 'SACAIG_statusFir
 
 
 
-// // Función que envía el correo con la póliza
-// function SACAIG_EnvioCorreoPoliza($email_asegurado, $link_poliza) {
-//    // Definición de headers
-//    $headers = array(
-//       'Content-Type: text/html; charset=UTF-8',
-//       'From: ' . SACAIG_MAIL_EMPRESA,
-//       'Reply-To: ' . SACAIG_MAIL_EMPRESA,
-//    );
-
-//    // Asunto del correo
-//    $asunto = "Póliza Seguro de Accidentes - " . SACAIG_NAME_EMPRESA;
-
-//    ob_start();
-//    require_once SACAIG_PLUGIN_PATH .'templates/plantilla-email.php';
-   
-//    $mensaje = ob_get_clean();
-
-//    // Enviar el correo
-//    $wp_mail_result = wp_mail($email_asegurado, $asunto, $mensaje, $headers);
-
-//    // Registro de errores si ocurre algún problema
-//    if (!$wp_mail_result) {
-
-//       insu_registrar_error_insuguru("SACAIG_EnvioCorreoPoliza", "Error al enviar correo: " . json_encode($wp_mail_result), SACAIG_INSU_PRODUCT_ID);
-      
-//       wp_send_json_error('Error al enviar el correo.');
-//         return false;
-//    }
-
-//    wp_send_json_success('Correo enviado exitosamente.');
-//    return true;
-// }
-
-// // Callback para enviar el correo vía AJAX
-// function SACAIG_enviar_correo_poliza_callback() {
-//    // Verifica que los parámetros se hayan pasado correctamente
-//    if (isset($_POST['email_asegurado']) && isset($_POST['link_poliza'])) {
-//       $email_asegurado = sanitize_email($_POST['email_asegurado']);
-//       $link_poliza = sanitize_text_field($_POST['link_poliza']);
-
-//       // Llama a la función para enviar el correo
-//       $resultado = SACAIG_EnvioCorreoPoliza($email_asegurado, $link_poliza);
-
-//       if ($resultado) {
-//          wp_send_json_success('Correo enviado exitosamente.');
-//       } else {
-//          wp_send_json_error('Error al enviar el correo.');
-//       }
-//    } else {
-//       wp_send_json_error('Datos faltantes.');
-//    }
-
-//    wp_die();
-// }
-
-// add_action('wp_ajax_SACAIG_enviar_correo_poliza', 'SACAIG_enviar_correo_poliza_callback');
-// add_action('wp_ajax_nopriv_SACAIG_enviar_correo_poliza', 'SACAIG_enviar_correo_poliza_callback');
-
-
-
-
-
-// Función que envía el correo con la póliza
-function SACAIG_EnvioCorreoPoliza($email_asegurado, $link_poliza) {
+// FUNCIÓN PARA ENVIAR EL CORREO DE CONFIRMACIÓN AL USUARIO
+function SACAIG_EnvioCorreoPoliza_cliente($email_asegurado) {
    // Definición de headers
    $headers = array(
       'Content-Type: text/html; charset=UTF-8',
-      'From: ' . SACAIG_MAIL_EMPRESA,
-      'Reply-To: ' . SACAIG_MAIL_EMPRESA,
+      'From: ' . sanitize_email(SACAIG_MAIL_EMPRESA),
+      'Reply-To: ' . sanitize_email(SACAIG_MAIL_EMPRESA),
    );
 
    // Asunto del correo
    $asunto = "Póliza Seguro de Accidentes - " . SACAIG_NAME_EMPRESA;
 
    ob_start();
-   
-   require_once SACAIG_PLUGIN_PATH .'templates/plantilla-email.php';
-   
+
+   $template_path = SACAIG_PLUGIN_PATH .'templates/plantilla-email.php';
+
+   if (file_exists($template_path)) {
+      require_once $template_path;
+   } else {
+      error_log("La plantilla de correo no existe: " . $template_path);
+      return false;
+   }
+
    $mensaje = ob_get_clean();
 
-   // Enviar el correo al cliente
+   // Enviar el correo
    $wp_mail_result = wp_mail($email_asegurado, $asunto, $mensaje, $headers);
+
+   // Registro de errores si ocurre algún problema
+   if (!$wp_mail_result) {
+      $error_message = 'Error al enviar correos a: ' . json_encode(array(
+         'email_asegurado' => $email_asegurado,
+         'correo_correduria' => SACAIG_MAIL_EMPRESA
+      ));
+
+      insu_registrar_error_insuguru("SACAIG_EnvioCorreoPoliza", $error_message, SACAIG_INSU_PRODUCT_ID);
+
+      wp_send_json_error('Error al enviar el correo.');
+
+      return false;
+   }
+
+   wp_send_json_success('Correo enviado exitosamente.');
+
+   return true;
+}
+
+
+// Callback para enviar el correo vía AJAX
+function SACAIG_enviar_correo_poliza_callback() {
+   // Verifica que los parámetros se hayan pasado correctamente
+   if (isset($_POST['email_asegurado'])) {
+
+      $email_asegurado = sanitize_email($_POST['email_asegurado']);
+
+      // Llama a la función para enviar el correo
+      $resultado = SACAIG_EnvioCorreoPoliza_cliente($email_asegurado);
+
+      if ($resultado) {
+         wp_send_json_success('Correo enviado exitosamente.');
+      } else {
+         wp_send_json_error('Error al enviar el correo.');
+      }
+   } else {
+      wp_send_json_error('Datos faltantes.');
+   }
+
+   wp_die();
+}
+
+add_action('wp_ajax_SACAIG_enviar_correo_poliza_cliente', 'SACAIG_enviar_correo_poliza_callback');
+add_action('wp_ajax_nopriv_SACAIG_enviar_correo_poliza_cliente', 'SACAIG_enviar_correo_poliza_callback');
+
+
+
+
+
+/********** CÓDIGO PARA ENVIAR EL CORREO DE SOLICITUD DE CONTRATACIÓN A LA COMPÁÑÍA Y UNA COPIA A LA CORREDURÍA **********/
+function SACAIG_EnvioCorreoPolizaCompania($email_asegurado, $link_poliza) {
+   // Definición de headers
+   $headers = array(
+      'Content-Type: text/html; charset=UTF-8',
+      'From: ' . sanitize_email(SACAIG_MAIL_EMPRESA),
+      'Reply-To: ' . sanitize_email(SACAIG_MAIL_EMPRESA),
+   );
+
 
    //ENVIAR CORREO A LA CORREDURÍA Y A LA COMPAÑIA 
    // $correos_reciben_confirmación = ['soporte@aunnabroker.es','suscripcion@aunnabroker.es',SACAIG_MAIL_EMPRESA];
@@ -1206,36 +1209,42 @@ function SACAIG_EnvioCorreoPoliza($email_asegurado, $link_poliza) {
 
 
    // Registro de errores si ocurre algún problema
-   if (!$wp_mail_result || !$wp_mail_result2) {
+   if (!$wp_mail_result2) {
 
-      insu_registrar_error_insuguru("SACAIG_EnvioCorreoPoliza", "Error al enviar correo: " . json_encode($wp_mail_result), SACAIG_INSU_PRODUCT_ID);
+      insu_registrar_error_insuguru("SACAIG_EnvioCorreoPolizaCompania", "Error al enviar correo: " . json_encode($wp_mail_result), SACAIG_INSU_PRODUCT_ID);
 
       wp_send_json_error('Error al enviar el correo.');
         return false;
    }
 
    wp_send_json_success('Correo enviado exitosamente.');
+
    return true;
 }
 
+
+
 // Función que será ejecutada por el cron job
-function SACAIG_enviar_correo_poliza_cron($email_asegurado,$signature_id,$request_id, $signatory_id ,$nombre_asegurado) {
+function SACAIG_enviar_correo_poliza_cron($email_asegurado, $signature_id, $request_id, $signatory_id, $nombre_asegurado) {
 
    // Obtener el documento firmado
    $file_path = SACAIG_obtener_documento_firmado_por_URL($request_id, $signature_id, $signatory_id, $nombre_asegurado);
 
-   // Reemplaza la ruta del sistema con la URL de tu sitio
-   $site_url = get_site_url(); // Obtén la URL base del sitio
-   $file_url = str_replace('/home/runcloud/webapps/tresmares_pruebas/wp-content', $site_url . '/wp-content', $file_path);
+   // Obtener el directorio base de wp-content
+   $wp_content_dir = WP_CONTENT_DIR; // Ruta absoluta a 'wp-content'
+   $wp_content_url = content_url();  // URL completa a 'wp-content'
 
-   insu_patch_contratacion_insuguru($file_url,$signature_id);
-   // Enviar el correo
-   $resultado = SACAIG_EnvioCorreoPoliza($email_asegurado, $file_url);
+   // Reemplaza la ruta del sistema con la URL correcta del sitio dinámicamente
+   $file_url = str_replace($wp_content_dir, $wp_content_url, $file_path);
 
-   if ($resultado) {
-       error_log('Correo enviado exitosamente a ' . $email_asegurado);
-   } else {
-       error_log('Error al enviar el correo a ' . $email_asegurado);
+   // Procesar el archivo (por ejemplo, parcheo de la contratación)
+   insu_patch_contratacion_insuguru($file_url, $signature_id);
+
+   // Enviar el correo con la URL del archivo
+   $resultado = SACAIG_EnvioCorreoPolizaCompania($email_asegurado, $file_url);
+
+   if (!$resultado) {
+      error_log('Error al enviar el correo a ' . $email_asegurado);
    }
 }
 
@@ -1244,20 +1253,21 @@ add_action('SACAIG_enviar_correo_poliza_evento', 'SACAIG_enviar_correo_poliza_cr
 
 
 // Callback para enviar el correo vía AJAX
-function SACAIG_enviar_correo_poliza_callback() {
+function SACAIG_enviar_correo_poliza_companias_callback() {
    // Verifica que los parámetros se hayan pasado correctamente
-   if (isset($_POST['email_asegurado']) && isset($_POST['link_poliza'])) {
-       $email_asegurado = sanitize_email($_POST['email_asegurado']);
-       $link_poliza = sanitize_text_field($_POST['link_poliza']);
-       $signature_id = $_POST['signature_id'];
-       $request_id = $_POST['request_id'];
-       $signatory_id = $_POST['signatory_id'];
-       $nombre_asegurado = sanitize_text_field($_POST['name_asegurado']);
+   if (isset($_POST['email_asegurado'], $_POST['link_poliza'], $_POST['signature_id'], $_POST['request_id'], $_POST['signatory_id'], $_POST['name_asegurado'])) {
+      // sanitizar inputs
+      $email_asegurado = sanitize_email($_POST['email_asegurado']);
+      $link_poliza = sanitize_text_field($_POST['link_poliza']);
+      $signature_id = intval($_POST['signature_id']); // asegúrate de que sea numérico
+      $request_id = intval($_POST['request_id']);     // lo mismo aquí
+      $signatory_id = intval($_POST['signatory_id']);
+      $nombre_asegurado = sanitize_text_field($_POST['name_asegurado']);
 
-       // Programar el cron job para enviar el correo en 1 minutos
-       $time_to_execute = time() + 60; // 60 segundos = 1 minutos
+      // Programar el cron job para enviar el correo en 1 minutos
+      $time_to_execute = time() + 60; // 60 segundos = 1 minutos
 
-       error_log('Programando cron con parámetros: ' . print_r(array(
+      error_log('Programando cron con parámetros: ' . print_r(array(
          'email_asegurado' => $email_asegurado,
          'signature_id' => $signature_id,
          'request_id' => $request_id,
@@ -1265,22 +1275,22 @@ function SACAIG_enviar_correo_poliza_callback() {
          'nombre_asegurado' => $nombre_asegurado
      ), true));
 
-       // Programar evento único, pasando los datos necesarios como argumento
-       wp_schedule_single_event($time_to_execute, 'SACAIG_enviar_correo_poliza_evento', array(
-           'email_asegurado' => $email_asegurado,
-           'signature_id' => $signature_id,
-           'request_id' => $request_id,
-           'signatory_id' => $signatory_id,
-           'nombre_asegurado' => $nombre_asegurado
-       ));
+      // Programar evento único, pasando los datos necesarios como argumento
+      wp_schedule_single_event($time_to_execute, 'SACAIG_enviar_correo_poliza_evento', array(
+         'email_asegurado' => $email_asegurado,
+         'signature_id' => $signature_id,
+         'request_id' => $request_id,
+         'signatory_id' => $signatory_id,
+         'nombre_asegurado' => $nombre_asegurado
+      ));
 
-       wp_send_json_success('El correo será enviado en 2 minutos.');
+      wp_send_json_success('El correo será enviado en 2 minutos.');
    } else {
-       wp_send_json_error('Datos faltantes.');
+      wp_send_json_error('Datos faltantes.');
    }
 
    wp_die();
 }
 
-add_action('wp_ajax_SACAIG_enviar_correo_poliza', 'SACAIG_enviar_correo_poliza_callback');
-add_action('wp_ajax_nopriv_SACAIG_enviar_correo_poliza', 'SACAIG_enviar_correo_poliza_callback');
+add_action('wp_ajax_SACAIG_enviar_correo_poliza_compania', 'SACAIG_enviar_correo_poliza_companias_callback');
+add_action('wp_ajax_nopriv_SACAIG_enviar_correo_poliza_compania', 'SACAIG_enviar_correo_poliza_companias_callback');

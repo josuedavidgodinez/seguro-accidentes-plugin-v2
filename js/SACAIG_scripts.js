@@ -164,62 +164,10 @@ function SACAIG_verificarEstadoTransaccion(request_id, signature_id, signatory_i
 
 
 /************** VALIDACIÓN DE FORMULARIOS *************/
-// Función para validar DNI, NIE o CIF de España
-function esIdentificadorValido(identificador) {
-    let regexDni = /^\d{8}[A-Z]$/i;
-    let regexNie = /^[XYZ]\d{7}[A-Z]$/i;
-    let regexCif = /^[A-HJNPQS]\d{7}[A-J0-9]$/i;
-    return regexDni.test(identificador) || regexNie.test(identificador) || regexCif.test(identificador);
-}
-
-// Función para validar el IBAN
-function esIbanValido(iban) {
-    const ibanSinEspacios = iban.replace(/\s+/g, '');
-    const regexIban = /^[A-Z]{2}[0-9]{22}$/;
-    return regexIban.test(ibanSinEspacios);
-}
-
-// Función para validar el número de teléfono
-function esTelefonoValido(numero) {
-    const numeroSinEspacios = numero.replace(/\s+/g, '');
-    const regexTelefono = /^[67][0-9]{8}$/;
-    return regexTelefono.test(numeroSinEspacios);
-}
-
-// Función para validar el código postal
-function esCodigoPostalValido(codigoPostal) {
-    var regex = /^[0-9]{5}$/;
-    return regex.test(codigoPostal);
-}
 
 
 // Función para validar todos los campos
 function validarCamposEnDiv(div) {
-    // Método personalizado para validar NIF/NIE/CIF
-    $.validator.addMethod("validIdentificador", function(value, element) {
-        return this.optional(element) || esIdentificadorValido(value);
-    }, "Introduce un DNI, NIE o CIF válido.");
-
-    // Método personalizado para validar IBAN
-    $.validator.addMethod("validIBAN", function(value, element) {
-        return this.optional(element) || esIbanValido(value);
-    }, "Introduce un IBAN válido.");
-
-    // Método personalizado para validar el teléfono
-    $.validator.addMethod("validTelefono", function(value, element) {
-        return this.optional(element) || esTelefonoValido(value);
-    }, "Introduce un número de teléfono móvil válido.");
-
-    // Método personalizado para validar el código postal
-    $.validator.addMethod("validCodigoPostal", function(value, element) {
-        return this.optional(element) || esCodigoPostalValido(value);
-    }, "Introduce un Código Postal válido.");
-
-    // Método personalizado para validar selects requeridos
-    $.validator.addMethod("selectRequired", function(value, element) {
-        return value !== null;
-    }, "Selecciona una opción.");
-
 
     // Configuración global de jQuery Validate
     $.extend($.validator.messages, {
@@ -448,43 +396,86 @@ $(document).ready(function() {
         let signatory_id = sessionStorage.getItem('signatory_id');
         let name_asegurado = sessionStorage.getItem('name_to_asegurar');
 
+        // Comprobar si ya existe el sessionStorage 'envioadoMailAccidentes'
+        let envioadoMailAccidentes = sessionStorage.getItem('envioadoMailAccidentes');
 
-        $.ajax({
-            url: miAjax.ajaxurl,
-            type: 'POST',
-            data: {
-                action: 'SACAIG_enviar_correo_poliza',
-                email_asegurado,
-                link_poliza: link_poliza_firmada,
-                request_id,
-                signature_id,
-                signatory_id,
-                name_asegurado
-            },
-            timeout: 15000, // 15 segundos de espera antes de timeout
-            success: function (mailResponse) {
-                if (!mailResponse.success) {
+        if (!envioadoMailAccidentes) {
+            // Si no existe, ejecutamos el AJAX
+            $.ajax({
+                url: miAjax.ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'SACAIG_enviar_correo_poliza_cliente',
+                    email_asegurado: email_asegurado
+                },
+                timeout: 5000,
+                success: function (response) {
+                    if (response.success) {
+                        // Segunda solicitud AJAX para programar el correo a la compañía
+                        $.ajax({
+                            url: miAjax.ajaxurl,
+                            type: 'POST',
+                            data: {
+                                action: 'SACAIG_enviar_correo_poliza_compania',
+                                email_asegurado: email_asegurado,
+                                link_poliza: link_poliza_firmada,
+                                request_id: request_id,
+                                signature_id: signature_id,
+                                signatory_id: signatory_id,
+                                name_asegurado: name_asegurado
+                            },
+                            timeout: 15000,
+                            success: function (response2) {
+                                if (response2.success) {
+                                    
+                                    // Registrar el sessionStorage 'envioadoMailAccidentes' con 1 minuto de vida
+                                    sessionStorage.setItem('envioadoMailAccidentes', 'true');
+                                    setTimeout(function () {
+                                        sessionStorage.removeItem('envioadoMailAccidentes');
+                                    }, 70000); // 60000ms = 1 minuto
+                                } else {
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'No se pudo programar el envío del correo a la compañía.',
+                                        icon: 'error',
+                                        confirmButtonText: 'OK'
+                                    });
+                                }
+                            },
+                            error: function () {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'Error en la solicitud para programar el envío del correo a la compañía.',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'No se pudo enviar el correo al cliente.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                },
+                error: function () {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'No se pudo enviar el correo. Por favor, inténtalo de nuevo.',
+                        text: 'Error en la solicitud para enviar el correo al cliente.',
                         icon: 'error',
                         confirmButtonText: 'OK'
                     });
+                },
+                complete: function () {
+                    $('#enviarCorreoBtn').prop('disabled', false); // Re-enable the button
                 }
-            },
-            error: function (xhr, status, error) {
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Error en la solicitud para enviar el correo.',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            },
-            complete: function () {
-                $('#enviarCorreoBtn').prop('disabled', false); // Rehabilitar el botón
-            }
-        });
+            });
+        } 
     }
+
+
 
 
     //Si existe pantallad de un solo precio la definimos aquí
@@ -508,7 +499,7 @@ $(document).ready(function() {
         let IDprecioSeguro = sessionStorage.getItem('selectedProductId')
         let precioSeguro = SACAIG_poliza_selected(IDprecioSeguro)
 
-        insu_registrar_rate(precioSeguro.precio,2)
+        insu_registrar_rate(precioSeguro.precio)
     });
 
 
@@ -649,29 +640,40 @@ $(document).ready(function() {
         if (currentStep.is('#step-form-anim-2') && $('input[name="actividad_maual"]:checked').val() == 'no') {
             $('#descr_trabajo_manual').val("")
             return $('#step-form-anim-4');          
+        }else if(currentStep.is('#step-form-anim-2') && $('input[name="actividad_maual"]:checked').val() == 'si'){
+            agregarNuevoStep()
         }
+
 
         if (currentStep.is('#step-form-anim-4') && $('input[name="enf_cardiaca"]:checked').val() == 'no') {
             $('#enf_cardiaca_descript').val("")
-            return $('#step-form-anim-6');
-            
+            return $('#step-form-anim-6');   
+        }else if(currentStep.is('#step-form-anim-4') && $('input[name="enf_cardiaca"]:checked').val() == 'si'){
+            agregarNuevoStep()
         }
+
 
         if (currentStep.is('#step-form-anim-6') && $('input[name="enf_grave"]:checked').val() == 'no') {
             $('#enf_grave_desctip').val("")
             return $('#step-form-anim-8');
-            
+        }else if(currentStep.is('#step-form-anim-6') && $('input[name="enf_grave"]:checked').val() == 'si'){
+            agregarNuevoStep()
         }
+
 
         if (currentStep.is('#step-form-anim-9') && $('input[name="tomador_diferente"]:checked').val() == 'no') {
             $('#step-form-anim-10 input').val('');
-            return $('#step-form-anim-11');
-            
+            return $('#step-form-anim-11');          
+        }else if(currentStep.is('#step-form-anim-9') && $('input[name="tomador_diferente"]:checked').val() == 'si'){
+            agregarNuevoStep()
         }
+
 
         if (currentStep.is('#step-form-anim-11') && $('input[name="establece_herederos"]:checked').val() == 'no') {
             $('#step-form-anim-12 input').val('');
             return $('#step-form-anim-13');      
+        }else if(currentStep.is('#step-form-anim-11') && $('input[name="establece_herederos"]:checked').val() == 'si'){
+            agregarNuevoStep()
         }
 
         // Actualiza los pasos visuales
@@ -751,6 +753,9 @@ $(document).ready(function() {
 
         //Borramos la seleccion de tipo de ataque sufrido
         $('#tipo-ataque-sufrido').val(null).trigger('change');
+
+        //si hay que quitar puntos, actualizamos (definida en asegura-core)
+        gestionarStepsaEliminar()
     });
 
 
@@ -919,11 +924,9 @@ $(document).ready(function() {
 
                 if (info && info.riesgo === 'SC') {
 
-                    $('#profesion').val(null).trigger('change');
-
                     Swal.fire({
                         title: 'Atención',
-                        text: 'Esta profesión no está cubierta en esta póliza. Sin embargo, puedes completar la solicitud de manera que podamos ofrecerte igualmente una solicitud personalizada a tus requerimientos.',
+                        text: 'La protección aplicará únicamente fuera de las horas de trabajo para la profesión seleccionada (cobertura extraprofesional).',
                         icon: 'warning'
                     });
                 }
@@ -959,6 +962,20 @@ $(document).ready(function() {
         minDate: today // Establecer la fecha mínima a hoy
     });
 
+
+    // Crear una nueva instancia de Date para obtener la fecha actual
+    var todayS = new Date();
+
+    // Obtener el día, mes y año, ajustando el formato para que siempre tenga dos dígitos
+    var day = ("0" + todayS.getDate()).slice(-2);
+    var month = ("0" + (todayS.getMonth() + 1)).slice(-2); // Los meses en JavaScript empiezan desde 0, por eso se suma 1
+    var year = todayS.getFullYear();
+
+    // Formatear la fecha en el formato dd-mm-yyyy
+    var todayFormattedS = day + "-" + month + "-" + year;
+
+    // Setear el valor del input a la fecha de mañana
+    $('#fecha_efecto_solicitada').val(todayFormattedS);
 
 });
 

@@ -93,7 +93,7 @@
 									    	</label>
 									    </div>
 									    <div class="radio-button-container text-start col-md-6 col-12">
-									        <input type="radio" name="actividad_maual" class="form-check-input" id="actividad_maual_no" value="no" required>
+									        <input type="radio" name="actividad_maual" class="form-check-input" id="actividad_maual_no" value="no" required checked>
 									        <label for="actividad_maual_no">
 									        	No
 									        </label>
@@ -151,7 +151,7 @@
 									    	</label>
 									    </div>
 									    <div class="radio-button-container text-start col-md-6 col-12">
-									        <input type="radio" name="enf_cardiaca" class="form-check-input" id="enf_cardiaca_no" value="no" required>
+									        <input type="radio" name="enf_cardiaca" class="form-check-input" id="enf_cardiaca_no" value="no" required checked>
 									        <label for="enf_cardiaca_no">
 									        	No
 									        </label>
@@ -208,7 +208,7 @@
 									    	</label>
 									    </div>
 									    <div class="radio-button-container text-start col-md-6 col-12">
-									        <input type="radio" name="enf_grave" class="form-check-input" id="enf_grave_no" value="no" required>
+									        <input type="radio" name="enf_grave" class="form-check-input" id="enf_grave_no" value="no" required checked>
 									        <label for="enf_grave_no">
 									        	No
 									        </label>
@@ -345,7 +345,7 @@
 									</div>
 
 									<div class="col-12 col-md-6">
-										<label for="identificador" class="form-label">NIF/NIE/CIF</label>
+										<label for="identificador" class="form-label">NIF/NIE</label>
 										<input type="text" class="form-control identificador-vrf insulead-identificacion" name="identificador" id="identificador" placeholder="Ejemplo: 12345678X" required>
 									</div>
 
@@ -391,7 +391,7 @@
 									    	</label>
 									    </div>
 									    <div class="radio-button-container text-start col-md-6 col-12">
-									        <input type="radio" name="tomador_diferente" class="form-check-input" id="tomador_diferente_no" value="no" required>
+									        <input type="radio" name="tomador_diferente" class="form-check-input" id="tomador_diferente_no" value="no" required checked>
 									        <label for="tomador_diferente_no">
 									        	No
 									        </label>
@@ -467,13 +467,13 @@
 									<label for="establece_herederos" class="form-label label_radio_buttons"></label>
 								    <div class="d-flex justify-content-center boxi-rb flex-wrap flex-md-nowrap justify-content-center two-points-multsp m-auto">
 								    	<div class="radio-button-container text-start col-md-6 col-12">
-									        <input type="radio" name="establece_herederos" class="form-check-input" id="establece_herederos_yes" value="si" required>							        
+									        <input type="radio" name="establece_herederos" class="form-check-input" id="establece_herederos_yes" value="si" required >							        
 									        <label for="establece_herederos_yes">
 									        	Sí
 									    	</label>
 									    </div>
 									    <div class="radio-button-container text-start col-md-6 col-12">
-									        <input type="radio" name="establece_herederos" class="form-check-input" id="establece_herederos_no" value="no" required>
+									        <input type="radio" name="establece_herederos" class="form-check-input" id="establece_herederos_no" value="no" required checked>
 									        <label for="establece_herederos_no">
 									        	No
 									        </label>
@@ -556,7 +556,7 @@
 
 						<h2 class="title-viajes">Datos de pago de tu seguro</h2>
 						<div class="text-start franja franja-forms-multstp">	
-							<div class="card-forms">
+							<div class="card-forms mb-3">
 
 								<div class="row g-4">
 
@@ -566,17 +566,17 @@
 									</div>
 
 									<div class="col-12 form-check form-switch">
-										<input type="checkbox" id="suscripcion_cond" class="form-check-input" name="suscripcion_cond">
+										<input type="checkbox" id="suscripcion_cond" class="form-check-input" name="suscripcion_cond" checked>
 								    	<label for="suscripcion_cond">He leído y acepto la Información Precontractual y el Contrato del Seguro (incluidas las cláusulas limitativas destacadas en negrita), los Términos y Condiciones de Contratación a Distancia y la Política de Privacidad</label><br><br>
 									</div>
 
 									<div class="col-12 form-check form-switch">
-										<input type="checkbox" id="declaracion_datos" class="form-check-input" name="declaracion_datos">
+										<input type="checkbox" id="declaracion_datos" class="form-check-input" name="declaracion_datos" checked>
 								    	<label for="declaracion_datos">Declaras que son exactos los datos que has facilitado, siendo responsable de las inexactitudes de los mismos, de acuerdo con el artículo 10 de la Ley de Contrato de Seguro, estando obligado a comunicar a la Entidad Aseguradora cualquier variación que se produzca durante la vigencia del seguro.</label><br><br>
 									</div>
 
 									<div class="col-12 form-check form-switch">
-										<input type="checkbox" id="suscripcion_pub" class="form-check-input" name="suscripcion_pub">
+										<input type="checkbox" id="suscripcion_pub" class="form-check-input" name="suscripcion_pub" checked>
 								    	<label for="suscripcion_pub">Acepto el envío de publicidad incluso por medios electrónicos, una vez terminada la relación contractual.</label><br><br>
 									</div>
 								

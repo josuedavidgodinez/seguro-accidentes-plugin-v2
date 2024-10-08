@@ -12,12 +12,8 @@ get_header();
             <!-- Formulario -->
             <form action="#" method="POST" class="form-validado multistep-asg">
 
-                <img class="img-sgviajes" src="<?php echo esc_url(SACAIG_IMAGEN_PLUGIN); ?>" alt="<?php esc_attr_e('Calcula el precio de tu ', 'seguro-accidentes-aig'); ?><?php echo esc_html(SACAIG_PRODUCTO_NOMBRE); ?>">
+                <img class="img-sgviajes thabnks-step" src="<?= AC_PLUGIN_URL."/img/firma.svg"; ?>">
 
-                <?php 
-                // Incluir el archivo desde la carpeta "parts"
-                    include( SACAIG_PLUGIN_PATH . 'parts/steps-form.php' ); 
-                ?>
 
                 <h2 class="title-viajes"><?php _e('Te hemos enviado un SMS a tu móvil.', 'seguro-accidentes-aig'); ?></h2> 
 
@@ -39,6 +35,6 @@ get_header();
 
         <?php 
         // Footer viajes
-        require(SACAIG_PLUGIN_PATH . 'parts/mini-footer.php');
+        require(SDOPZ_PLUGIN_PATH . 'parts/mini-footer.php');
         get_footer();
     

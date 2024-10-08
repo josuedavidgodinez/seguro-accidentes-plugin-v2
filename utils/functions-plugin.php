@@ -128,3 +128,27 @@ function SACAIG_poliza_selected($id_poliza) {
 
     return $data;
 }
+
+
+// Función que devuelve la profesión en función del ID seleccionado
+function sacaig_profesiones_byid($idprofesion) {
+    global $wpdb; // Accedemos a la base de datos global de WordPress
+
+    // Definimos el nombre de la tabla (asegurándonos de usar el prefijo de tablas de WP)
+    $table_name = $wpdb->prefix . 'profesiones_accidentes_riesgos';
+
+    // Preparamos la consulta para obtener la profesión por su ID
+    $profesion = $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT profesion FROM $table_name WHERE id = %d", 
+            $idprofesion
+        )
+    );
+
+    // Devolvemos el valor de la profesión o un mensaje si no se encuentra
+    if ($profesion) {
+        return $profesion;
+    } else {
+        return 'Profesión no encontrada';
+    }
+}

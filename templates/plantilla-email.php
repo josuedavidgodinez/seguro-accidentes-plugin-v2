@@ -160,7 +160,9 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.or
                                                                             <table cellspacing="0" cellpadding="0" border="0" role="presentation" width="200" class="r3-o" style="table-layout: fixed; width: 200px;">
                                                                                 <tr>
                                                                                     <td style="font-size: 0; line-height: 0;">
-                                                                                        <img src="https://universopelo.com/wp-content/uploads/2022/11/logo-3mares.svg" width="160" border="0" style="display: block; width: 100%;">
+                                                                                        <img src="'.SACAIG_LOGO_TOP_EMPRESA.'"
+                                                                                            width="160" border="0"
+                                                                                            style="display: block; width: 100%;">
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -193,7 +195,7 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.or
                                                                                     <td align="center" valign="top" class="r11-i nl2go-default-textstyle" style="color: #004481; font-family: Space Grotesk, Arial; font-size: 16px; line-height: 1.5; padding: 15px 0; text-align: center;">
                                                                                         <div>
                                                                                             <h1 class="default-heading1" style="margin: 0; color: #004481; font-family: Arial, Helvetica, sans-serif; font-size: 36px;">
-                                                                                                <span style="font-family: \'Space Grotesk\', Arial; font-size: 32px;">Gracias por confiar en '.SACAIG_NAME_EMPRESA.'</span>
+                                                                                                <span style="font-family: \'Space Grotesk\', Arial; font-size: 27px;">Gracias por confiar en '.SACAIG_NAME_EMPRESA.'</span>
                                                                                             </h1>
                                                                                         </div>
                                                                                     </td>
@@ -207,9 +209,9 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.or
                                                                                 <tr>
                                                                                     <td align="center" valign="top" class="r12-i nl2go-default-textstyle" style="color: #004481; font-family: Space Grotesk, Arial; font-size: 16px; line-height: 1.5; padding-top: 15px; text-align: center;">
                                                                                         <div>
-                                                                                            <p style="margin: 0;"><span style="color: #333333;">A continuación podrás descargar la póliza que acabas de contratar.</span></p>
+                                                                                            <p style="margin: 0;"><span style="color: #333333;">En breve tramitaremos la solicitud de emisión de tu póliza de seguro de accidentes. Te contactaremos en breve.</span></p>
                                                                                             <p style="margin: 0;"></p>
-                                                                                            <p style="margin: 0;"><span style="color: #333333;">Recuerda que estamos para ayudarte en todo lo que necesites llamando al '.SACAIG_TELEFONO_EMPRESA.' o escribiéndonos a admin@tresmares.com.</span></p>
+                                                                                            <p style="margin: 15px 0 0 0;"><span style="color: #333333;">Mientras tanto, recuerda que <b>la solicitud no otorga cobertura.</span></p>
                                                                                         </div>
                                                                                     </td>
                                                                                 </tr>
@@ -224,19 +226,8 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.or
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td height="18" align="center" valign="top" class="r14-i nl2go-default-textstyle" style="color: #004481; font-family: Space Grotesk, Arial; font-size: 16px; line-height: 1.5; text-align: center;">
-                                                                                        <!--[if mso]> 
-                                                                                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="#top" style="v-text-anchor:middle; height: 49px; width: 299px;" arcsize="26%" fillcolor="#ff2f76" strokecolor="#ff2f76" strokeweight="1px" data-btn="1"> 
-                                                                                            <w:anchorlock></w:anchorlock> 
-                                                                                            <v:textbox inset="0,0,0,0"> 
-                                                                                                <div style="display:none;"> 
-                                                                                                    <center class="default-button"><span>Descargar póliza</span></center> 
-                                                                                                </div> 
-                                                                                            </v:textbox> 
-                                                                                        </v:roundrect> 
-                                                                                        <![endif]-->
-                                                                                        <!--[if !mso]><!-- --> 
                                                                                         <a href="'.$link_poliza.'" class="r15-r default-button" target="_blank" data-btn="1" style="font-style: normal; font-weight: bold; line-height: 1.15; text-decoration: none; background-color: #ff2f76; border: none; border-radius: 13px; color: #ffffff; font-family: Space Grotesk, Arial; font-size: 16px; padding: 16px 5px; width: 290px; display: block;">
-                                                                                            <span>Descargar póliza</span>
+                                                                                            <span>Descargar solicitud firmada</span>
                                                                                         </a>
                                                                                         <!--<![endif]--> 
                                                                                     </td>
@@ -254,34 +245,8 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.or
                                     </td>
                                 </tr>
                             </table>
-                            <table cellspacing="0" cellpadding="0" border="0" role="presentation" width="100%" align="center" class="r3-o" style="table-layout: fixed; width: 100%;">
-                                <tr>
-                                    <td class="r4-i" style="padding: 20px 0;">
-                                        <table width="100%" cellspacing="0" cellpadding="0" border="0" role="presentation">
-                                            <tr>
-                                                <th width="100%" valign="top" class="r5-c" style="font-weight: normal;">
-                                                    <table cellspacing="0" cellpadding="0" border="0" role="presentation" width="100%" class="r6-o" style="table-layout: fixed; width: 100%;">
-                                                        <tr>
-                                                            <td valign="top" class="r7-i" style="padding: 0 15px;">
-                                                                <table width="100%" cellspacing="0" cellpadding="0" border="0" role="presentation">
-                                                                    <tr>
-                                                                        <td class="r16-c nl2go-default-textstyle" align="left" style="color: #004481; font-family: Space Grotesk, Arial; font-size: 16px; line-height: 1.5; padding: 15px 0; text-align: left;">
-                                                                            <div>
-                                                                                <p style="margin: 0;">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </th>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table cellspacing="0" cellpadding="0" border="0" role="presentation" width="100%" align="center" class="r3-o" style="table-layout: fixed; width: 100%;">
+                            
+                            <table cellspacing="0" cellpadding="0" border="0" role="presentation" width="100%" align="center" class="r3-o" style="table-layout: fixed; width: 100%; margin-top:40px;">
                                 <tr>
                                     <td class="r17-i" style="background-color: #eafcfd; padding: 20px 0;">
                                         <table width="100%" cellspacing="0" cellpadding="0" border="0" role="presentation">
@@ -307,10 +272,16 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.or
                                                                     <tr>
                                                                         <td class="r16-c nl2go-default-textstyle" align="left" style="color: #004481; font-family: Space Grotesk, Arial; font-size: 16px; line-height: 1.5; padding: 15px 0; text-align: left;">
                                                                             <div>
-                                                                                <ul style="margin: 0;">
-                                                                                    <li style="margin: 0;"><span style="color: #333; font-size: 15px;">Tres Mares Correduría - C/ Peñas Arriba 39200 Reinosa - Cantabria</span></li>
-                                                                                    <li style="margin: 0;"><a href="mailto:info@tresmares.es" style="color: #644bf1; text-decoration: underline;"><span style="color: #333; font-size: 15px;">info@tresmares.es</span></a></li>
-                                                                                    <li style="margin: 0;"><span style="color: #333; font-size: 15px;">942 751 885</span></li>
+                                                                                <ul style="margin: 0;text-align: center;list-style: none;">
+                                                                                    <li style="margin: 0;"><span
+                                                                                            style="color: #333; font-size: 15px;">'.SACAIG_NAME_EMPRESA.' - '.SACAIG_DIRECCION_EMPRESA.'</span></li>
+                                                                                    <li style="margin: 0;"><a
+                                                                                            href="mailto:'.SACAIG_MAIL_EMPRESA.'"
+                                                                                            style="color: #644bf1; text-decoration: underline;"><span
+                                                                                                style="color: #333; font-size: 15px;">'.SACAIG_MAIL_EMPRESA.'</span></a>
+                                                                                    </li>
+                                                                                    <li style="margin: 0;"><span
+                                                                                            style="color: #333; font-size: 15px;">'.SACAIG_TELEFONO_EMPRESA.'</span></li>
                                                                                 </ul>
                                                                             </div>
                                                                         </td>
@@ -337,3 +308,4 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.or
     </table>
 </body>
 </html>';
+
