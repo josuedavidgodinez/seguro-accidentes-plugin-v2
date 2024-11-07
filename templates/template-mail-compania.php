@@ -547,21 +547,15 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.or
                                                                     </tr>
 
                                                                     <tr>
-                                                                        <td class="r2-c" align="center">
-                                                                            <table cellspacing="0" cellpadding="0" border="0" role="presentation" width="300" class="r13-o" style="table-layout: fixed; width: 300px;">
-                                                                                <tr class="nl2go-responsive-hide">
-                                                                                    <td height="30" style="font-size: 30px; line-height: 30px;">&nbsp;</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td height="18" align="center" valign="top" class="r14-i nl2go-default-textstyle" style="color: #004481; font-family: Space Grotesk, Arial; font-size: 16px; line-height: 1.5; text-align: center;">
-                                                                                        <a href="'.$link_poliza.'" class="r15-r default-button" target="_blank" data-btn="1" style="font-style: normal; font-weight: bold; line-height: 1.15; text-decoration: none; background-color: #ff2f76; border: none; border-radius: 13px; color: #ffffff; font-family: Space Grotesk, Arial; font-size: 16px; padding: 16px 5px; width: 290px; display: block;">
-                                                                                            <span>Descargar solicitud firmada</span>
-                                                                                        </a>
-                                                                                        <!--<![endif]--> 
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
-                                                                        </td>
+                                                                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin: 35px auto;">
+                                                                            <tr>
+                                                                                <td align="center" bgcolor="#ff2f76" style="border-radius: 13px;">
+                                                                                    <a href="'.$link_poliza.'" target="_blank" style="font-style: normal; font-weight: bold; line-height: 1.15; text-decoration: none; background-color: #ff2f76; color: #ffffff; font-family: Space Grotesk, Arial; font-size: 16px; padding: 16px 15px; display: inline-block; border-radius: 13px;">
+                                                                                        Descargar solicitud firmada
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
                                                                     </tr>
 
                                                                     <tr>
@@ -634,19 +628,14 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.or
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="r16-c nl2go-default-textstyle" align="left" style="color: #004481; font-family: Space Grotesk, Arial; font-size: 16px; line-height: 1.5; padding: 15px 0; text-align: left;">
-                                                                            <div>
-                                                                                <ul style="margin: 0;text-align: center;list-style: none;">
-                                                                                    <li style="margin: 0;"><span
-                                                                                            style="color: #333; font-size: 15px;">'.SACAIG_NAME_EMPRESA.' - '.SACAIG_DIRECCION_EMPRESA.'</span></li>
-                                                                                    <li style="margin: 0;"><a
-                                                                                            href="mailto:'.SACAIG_MAIL_EMPRESA.'"
-                                                                                            style="color: #644bf1; text-decoration: underline;"><span
-                                                                                                style="color: #333; font-size: 15px;">'.SACAIG_MAIL_EMPRESA.'</span></a>
-                                                                                    </li>
-                                                                                    <li style="margin: 0;"><span
-                                                                                            style="color: #333; font-size: 15px;">'.SACAIG_TELEFONO_EMPRESA.'</span></li>
-                                                                                </ul>
+                                                                            <div style="text-align: center;">
+                                                                                <p style="margin: 0; color: #333; font-size: 15px;">'.SACAIG_DIRECCION_EMPRESA.'</p>
+                                                                                <p style="margin: 0;">
+                                                                                    <a href="mailto:'.SACAIG_MAIL_EMPRESA.'" style="color: #644bf1; text-decoration: underline; font-size: 15px;">'.SACAIG_MAIL_EMPRESA.'</a>
+                                                                                </p>
+                                                                                <p style="margin: 0; color: #333; font-size: 15px;">'.SACAIG_TELEFONO_EMPRESA.'</p>
                                                                             </div>
+
                                                                         </td>
                                                                     </tr>
 

@@ -25,7 +25,7 @@ get_header();
                     
                     <img class="img-animada-reloj mb-4" src="<?= AC_PLUGIN_URL; ?>/img/loader.svg" alt="Tan sólo unos segundos." width="100px;">
 
-                    <p><?php _e('Una vez firmes el documento, esta página se recargará de manera automática.', 'seguro-accidentes-aig'); ?></p>
+                    <p class="alert alert-danger"><?php _e('Una vez firmes el documento, esta página se recargará de manera automática.', 'seguro-accidentes-aig'); ?></p>
                 </div>  
 
             </form>

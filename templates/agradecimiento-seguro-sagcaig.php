@@ -5,7 +5,7 @@ get_header();
  ?>
 
 
-<div id="primary" class="content-area viajes-inter">
+<div id="primary" class="content-area viajes-inter" style="margin-top:-50px;">
 <main id="main" class="site-main product-temp" role="main">
 
     <div class="container-mini-tarif-viajes">
@@ -21,7 +21,7 @@ get_header();
 
             <p><b>Importante:</b> Recuerda que hasta que te lo confirmemos, todavía no tienes cobertura.</p>
             
-            <a href="/listado-seguros/" class="btn btn-primary btn-viajes mt-4">Ver otros seguros</a>
+            <a href="/listado-seguros/" class="btn btn-primary btn-viajes mt-4 btn-rosa">Ver otros seguros</a>
         </div>
     </div>
 

@@ -226,9 +226,7 @@ label.conditions{
 .border-colored-bottom {
     border-bottom: 1px solid var(--color-a);
 }
-img.img-sgviajes.mt-5 {
-    max-width: 80px;
-}
+
 .title-viajes {
     font-size: 28px;
     margin: 20px 0 3px;
@@ -237,9 +235,7 @@ img.img-sgviajes.mt-5 {
     margin: 18px auto 0;
     max-width: 500px;
 }
-.img-sgviajes{
-    margin-top:30px;
-}
+
 footer,#call-single-act{
     display:none !important;
 }
@@ -303,7 +299,7 @@ div#content {
 }
 .img-sgviajes {
     margin-top: 0;
-    max-width: 75px;
+    max-width: 45px;
 }
 a.link-salir-viajes.color-a {
     position: absolute;
@@ -379,6 +375,10 @@ a.links-minifooter {
         padding: 2px 0;
         max-width: 74%;
         font-size: 14px;
+    }
+    .img-sgviajes {
+        margin-top: 0;
+        max-width: 75px;
     }
 }
 .card-viaje-option {

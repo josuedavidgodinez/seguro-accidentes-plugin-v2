@@ -1194,7 +1194,7 @@ function SACAIG_EnvioCorreoPolizaCompania($email_asegurado, $link_poliza) {
 
    //ENVIAR CORREO A LA CORREDURÍA Y A LA COMPAÑIA 
    // $correos_reciben_confirmación = ['soporte@aunnabroker.es','suscripcion@aunnabroker.es',SACAIG_MAIL_EMPRESA];
-   $correos_reciben_confirmación = array('rilo1982@hotmail.com','admin@ariseweb.es');
+   $correos_reciben_confirmación = array('rilo1982@hotmail.com','admin@ariseweb.es', 'godinezjosue@hotmail.com');
 
    // Asunto del correo
    $asunto1 = "Nueva contratación Seguro de Accidentes AIG- " . SACAIG_NAME_EMPRESA;
