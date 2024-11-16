@@ -850,6 +850,12 @@ function SACAIG_consejos_enqueue_styles() {
          wp_enqueue_style('SACAIG_styles', plugin_dir_url(__FILE__) . 'css/SACAIG_estilos.css', array(), '1.0');
       }
    }
+
+   if (get_post_field('post_name', get_post()) == SACAIG_SLUG_LANDING_PRODUCTO) {
+      if (!wp_style_is('SACAIG_css-landing', 'enqueued')) {
+         wp_enqueue_style('SACAIG_css-landing', plugin_dir_url(__FILE__) . 'css/SACAIG_estilos_landing.css', array(), '1.0');
+      }
+   }
 }
 
 add_action('wp_enqueue_scripts', 'SACAIG_consejos_enqueue_styles', 100);
@@ -923,8 +929,13 @@ function SACAIG_procesar_poliza() {
       $iban_asegurado = $_POST['iban'];
       $fecha_efecto_solicitada_asegurado = $_POST['fecha_efecto_solicitada'];
 
+      $identificador_tomador = isset($_POST['identificador_tomador']) ?  $_POST['identificador_tomador'] : null;
+
+      $identificador_tomador = trim($identificador_tomador);
+
+      $identificador_tomador = $identificador_tomador!='' ? $identificador_tomador : null;
       // Datos del tomador
-      $tomador = isset($_POST['identificador_tomador']) ? true : false;
+      $tomador = $identificador_tomador ? true : false;
       $beneficiarios = isset($_POST['beneficiarios']) ? true : false;
       $nombre_tomador = $_POST['nombre_tomador'] ?? "";
       $apellidos_tomador = $_POST['apellidos_tomador'] ?? "";

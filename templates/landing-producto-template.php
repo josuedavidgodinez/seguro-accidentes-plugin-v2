@@ -30,7 +30,7 @@ if ($fondo_faqs == "verde") {
 
 			<div class="container">
 				<section class="franja pt-5">
-					<div class="d-flex flex-row flex-wrap align-items-center align-items-md-end justify-items-between">
+					<div class="d-flex flex-row flex-wrap align-items-center align-items-md-center justify-items-between">
 						<div class="col-12 col-md-6 text-start" id="text-val-b">
 							<header>
 								<h1 class="h1-servicios"><?php the_title(); ?></h1>
