@@ -72,6 +72,9 @@ require_once SACAIG_PLUGIN_PATH .'api/firma-api.php';
 
 //Requerimos archivos con las funcionalidades de crear un proyecto.
 require_once SACAIG_PLUGIN_PATH .'templates/template-proyecto.php';
+require_once SACAIG_PLUGIN_PATH .'templates/proyectos_pdf/template-proyecto-v2.php';
+
+
 require_once SACAIG_PLUGIN_PATH .'utils/generacion-proyecto.php';
 
 //Requerimos archivos con las funcionalidades propias del plugin.
@@ -943,6 +946,9 @@ function SACAIG_procesar_poliza() {
       $poblacion_tomador = $_POST['poblacion_tomador'] ?? "";
       $direccion_tomador = $_POST['dirección_tomador'] ?? "";
       $identificador_tomador = $_POST['identificador_tomador'] ?? "";
+      $email_tomador = $_POST['email_tomador'] ?? "";
+      $telefono_tomador = $_POST['telefono_tomador'] ?? "";
+      $fecha_nacimiento_tomador = $_POST['fecha_nacimiento_tomador'] ?? "";
       $provincia_tomador = $provincia_asegurado;
 
       //Si el tomador es la misma persona que se esta asegurando, se copian los datos en las variables
@@ -953,13 +959,17 @@ function SACAIG_procesar_poliza() {
          $poblacion_tomador = $poblacion_asegurado;
          $direccion_tomador = $direccion_asegurado;
          $identificador_tomador = $identificador_asegurado;
+         $email_tomador = $email_asegurado;
+         $telefono_tomador = $telefono_asegurado;
+         $fecha_nacimiento_tomador = $fecha_nacimiento_asegurado;
       }
 
-      //Si el button beneficiario fue activado, se le agrega una X al string
-         $beneficio = "";
-         if($beneficiarios){
-            $beneficio = "X";
-      }
+            //Si el button beneficiario fue activado, se le agrega una X al string
+            $beneficio = "";
+            if($beneficiarios){
+               $beneficio = "X";
+         }
+
         
       //Sobre los beneficiarios
       $beneficiarios = array();
@@ -1015,8 +1025,10 @@ function SACAIG_procesar_poliza() {
          $direccion_tomador,
          $identificador_tomador,
          $nombre_provincia_tomador,
+         $email_tomador,
+         $telefono_tomador,
+         $fecha_nacimiento_tomador,
          $tipo_poliza,
-         $beneficio,
          $beneficiarios
       );
 

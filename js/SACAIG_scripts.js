@@ -702,7 +702,8 @@ $(document).ready(function() {
         event.preventDefault();
 
         var currentStep = $(this).closest('div[id^="step-form-anim-"]');
-        var isvalidaPantalla = validarCamposEnDiv(currentStep);
+        //var isvalidaPantalla = validarCamposEnDiv(currentStep);
+        let isvalidaPantalla = true;
         var nextStep = await getNextStep(currentStep);
 
         var currentPasoLinea = $('.steps_asegura_forms.active');
@@ -961,6 +962,32 @@ $(document).ready(function() {
         startDate: today,
         minDate: today // Establecer la fecha mínima a hoy
     });
+    new AirDatepicker('#fecha_nacimiento_tomador', {
+        dateFormat: 'dd-MM-yyyy',
+        isMobile: true,
+        autoClose: true,
+        locale: localeEs,
+        startDate: new Date(1985, 1, 1),
+        view: 'years',
+        minView: 'days',
+        onChangeView(view) {
+            // Cambiar la vista al seleccionar años o meses
+            const instance = this; // 'this' se refiere a la instancia del datepicker
+            setTimeout(() => {
+                if (view === 'years' && instance.setView) {
+                    instance.setView('months');
+                } else if (view === 'months' && instance.setView) {
+                    instance.setView('days');
+                }
+            }, 0);
+        },
+        onSelect: function({datepicker}) {
+            $(`#fecha_nacimiento_asegurado_${contadorAseguradosAdic}`).valid();
+            verificarEdadYOcultarCampos(datepicker.$el);
+
+        }
+    });
+   
 
 
     // Crear una nueva instancia de Date para obtener la fecha actual

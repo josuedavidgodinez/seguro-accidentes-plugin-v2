@@ -30,15 +30,17 @@ function SACAIG_Generar_proyecto_PDF(
     $direccion_tomador,
     $identificador_tomador,
     $nombre_provincia_tomador,
+    $email_tomador,
+    $telefono_tomador,
+    $fecha_nacimiento_tomador,
     $tipo_poliza,
-    $beneficio,
     $beneficiarios
 ){
     $timestamp = time();
     $nombrepdf = sanitize_file_name($nombre_asegurado . '_' . $timestamp . '.pdf');
 
     // Generar el HTML utilizando la plantilla
-    $html = SACAIG_template_seguro_accidentes_aig(
+    $html = SACAIG_template_seguro_accidentes_aig_v2(
         $profesion,
         $actividad_manual,
         $descr_trabajo_manual,
@@ -65,8 +67,10 @@ function SACAIG_Generar_proyecto_PDF(
         $direccion_tomador,
         $identificador_tomador,
         $nombre_provincia_tomador,
+        $email_tomador,
+        $telefono_tomador,
+        $fecha_nacimiento_tomador,
         $tipo_poliza,
-        $beneficio,
         $beneficiarios
     );
 
@@ -87,7 +91,14 @@ function SACAIG_Generar_proyecto_PDF(
 
     // Generar el PDF desde HTML y guardarlo en el sistema de archivos
     try {
-        $snappy->generateFromHtml($html, $pdf_path);
+        $snappy->generateFromHtml($html, $pdf_path, 
+        [
+            'dpi' => 300,      // Alta calidad
+            'page-size' => 'A4',
+            'zoom' => 1.0,
+            'image-quality' => 100
+        ]
+    );
         $pdf_url = SACAIG_PLUGIN_URL. 'archivos/proyectos/' . $nombrepdf;
 
         return $pdf_url;

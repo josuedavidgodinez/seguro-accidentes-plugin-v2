@@ -27,8 +27,10 @@ function SACAIG_template_seguro_accidentes_aig(
     $direccion_tomador,
     $identificador_tomador,
     $nombre_provincia_tomador,
+    $email_tomador,
+    $telefono_tomador,
+    $fecha_nacimiento_tomador,
     $tipo_poliza,
-    $beneficio,
     $beneficiarios
 ){
 

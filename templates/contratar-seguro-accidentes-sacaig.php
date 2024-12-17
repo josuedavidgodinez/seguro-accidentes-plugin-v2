@@ -440,6 +440,20 @@
 				                        <label for="identificador_tomador" class="form-label">NIF/NIE/CIF</label>
 				                        <input type="text" class="form-control identificador-vrf" name="identificador_tomador" id="identificador_tomador" placeholder="Ejemplo: 12345678X" required>
 				                    </div>
+									<div class="col-12 col-md-6">
+										<label for="email_tomador" class="form-label">Email</label>
+										<input type="email" class="form-control email-vrf" name="email_tomador" id="email_tomador" placeholder="Ejemplo: mail@gmail.com" required>
+									</div>
+
+									<div class="col-12 col-md-6">
+										<label for="telefono_tomador" class="form-label">Teléfono Móvil</label>
+										<input type="tel" class="form-control telefono-vrf" name="telefono_tomador" id="telefono_tomador" placeholder="Ejemplo: 655 123 456" required>
+									</div>
+
+									<div class="col-12 col-md-6">
+										<label for="fecha_nacimiento_tomador" class="form-label">Fecha de nacimiento</label>
+										<input type="text" class="form-control fecha_nacimient_vrf" name="fecha_nacimiento_tomador" id="fecha_nacimiento_tomador" placeholder="Selecciona una fecha" required>
+									</div>
 
 								</div>
 							</div>
