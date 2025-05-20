@@ -1,0 +1,65 @@
+Tener definidas las siguientes constantes desde wp-config.php sobre la correduría
+
+```jsx
+/***
+ * DEFINIMOS VALORES IMPORTANTES QUE LUEGO PODAMOS UTILIZAR SOBRE LA CORREDURÍA
+ * ****/
+define('WPCONFIG_NAME_EMPRESA', 'Asegura ');
+define('WPCONFIG_URLEMPRESA', 'https://asegura.com');
+define('WPCONFIG_MAIL_EMPRESA', 'admin@ariseweb.es');
+define('WPCONFIG_MAIL_EMPRESA_PARA_PUBLICO', 'info@asegura.com');
+define('WPCONFIG_LOGO_TOP_EMPRESA', 'https://asegura.com/wp-content/uploads/2025/01/logo-min-asegura.png');   //Idealmente PNG
+define('WPCONFIG_LOGO_ORIGINAL_EMPRESA', 'https://asegura.com/wp-content/uploads/2024/09/Asegura-logo.svg');   //Idealmente SVG
+define('WPCONFIG_DIRECCION_EMPRESA', 'Calle Castro, 50 6º-D. 38006, Santa Cruz de Tenerife');
+define('WPCONFIG_TELEFONO_EMPRESA', '');
+define('WPCONFIG_TELEFONO_EMPRESA_2', '');
+define('CORR_CIF_CORREDURIA', '798989897');
+define('CORR_REG_SEGUROSY_PENSIONES_CORREDURIA', '798989897');
+```
+
+## 1. Descripción
+
+Este plugin permite tarificar y contratar un seguro de accidentes con AIG. 
+
+- El usuario elige la cobertura que desea (existen 3)
+- Ingresa toda su información personal, del tomador y bancaria.
+- Se genera un proyecto en PDF de la tarificación.
+- Se cumplimenta el documento de AIG para la solicutud de contratación del seguro.
+- Se solicita la firma digital del documento cumplimentado por el plugin (la solicitud de la compañía)
+- Se envía por correo a la correduría y a la compañía.
+
+## 2. Requerimientos iniciales
+
+Asegurarse que en la configuración del servidor se han eliminado de de *disable functions*:
+
+- proc_open
+- proc_close
+
+También son necesarias ciertas librerías para la cumplimentación y generación del pdf. Por ello es necesario ejecutar los siguientes comandos en el servidor:
+
+```html
+sudo apt-get update && sudo apt-get -y install wkhtmltopdf
+```
+
+```html
+sudo apt install -y pdftk
+```
+
+## 3. Instalación y configuración
+
+Subir el plugin a través de FTP o directamente en Wordpress.
+
+**Importante:** Antes de activar:
+
+1. Definir en el archivo principal del plugin las constantes entre el comentario  **/***VARIABLES A REVISAR ANTES DE ACTIVAR EL PLUGIN****/**   que sean necesarias. y también las constantes de correo en 
+2. Definir los correos que reciben la solicitrud de contratación en el archivo principal en **/****ENVIAR CORREO A LA CORREDURÍA Y A LA COMPAÑIA***/**  en la línea 1255
+3. Recordar cambiar también las credenciales de Lleida Net para cada correduría
+4. Activar el  plugin.
+5. Revisar se ha generado correctamente la tabla de profesiones
+
+<aside>
+🚨
+
+Es aconsejable tras la activación el plugin reescribir enlaces permanentes y borrar cache
+
+</aside>

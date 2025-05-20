@@ -1,0 +1,32 @@
+div#img-producto {
+    max-width: 120px;
+    margin: 0 auto;
+}
+@media (max-width:596px){
+    h1.h1-servicios{
+        font-size: 32px;
+        text-align: center;
+    }
+}
+section.franja.blco-1-topg {
+    padding-bottom: 0px;
+}
+
+@media (min-width:772px){
+    div#img-producto {
+        margin-left: 10%;
+        max-width: 425px;
+        margin-top: 0;
+    }
+    .pad-left-block{
+        padding-left: 5%;
+    }
+    section.franja.blco-1-topg {
+        padding-bottom: 40px;
+    }
+    div#img-producto {
+        max-width: 220px;
+        margin-left: auto;
+        margin-top: 0%;
+    }
+}
