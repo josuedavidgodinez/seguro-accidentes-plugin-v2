@@ -9,10 +9,6 @@
          // Obtener el transient
          $datos = get_transient("SACAIG_".$identifier);
 
-         error_log('ID recibido: ' . $identifier);
-
-         error_log('Datos: ' . json_encode( $datos ));
-
          if ( false === $datos ) {
              error_log('Transient no encontrado: ' . $identifier);
              return ([

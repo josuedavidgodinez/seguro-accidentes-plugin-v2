@@ -1,9 +1,9 @@
+# Fundamental:
+
 Tener definidas las siguientes constantes desde wp-config.php sobre la correduría
 
 ```jsx
-/***
- * DEFINIMOS VALORES IMPORTANTES QUE LUEGO PODAMOS UTILIZAR SOBRE LA CORREDURÍA
- * ****/
+
 define('WPCONFIG_NAME_EMPRESA', 'Asegura ');
 define('WPCONFIG_URLEMPRESA', 'https://asegura.com');
 define('WPCONFIG_MAIL_EMPRESA', 'admin@ariseweb.es');

@@ -245,7 +245,7 @@
     			</div>			
 		</div>
 	</section>
-	<div style="margin-top: 170px">
+	<div style="margin-top: 280px">
 	<?php
 		$page = 3;
 	 	include( SACAIG_PLUGIN_PATH . 'templates/proyectos_pdf/parts/footer.php' );
@@ -681,13 +681,13 @@
 						<img src="<?= SACAIG_PLUGIN_URL . 'templates/proyectos_pdf/img/alert.svg'?>" alt="Alerta" style="width: 18px;">
 					</div>
 					<div class="mt-1">
-						<p class="text-dark font-weight-light font-small">Los	límites	económicos	y	temporales	que	figuren	en	las  Condiciones	Generales	y/o	Particulares.</p>
+						<p class="text-dark font-weight-light font-small">Los límites	económicos	y	temporales	que	figuren	en	las  Condiciones	Generales	y/o	Particulares.</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<div >
+	<div style="margin-top: -5px">
 	 <?php
 		$page = 7;
 	 	include( SACAIG_PLUGIN_PATH . 'templates/proyectos_pdf/parts/footer.php' );

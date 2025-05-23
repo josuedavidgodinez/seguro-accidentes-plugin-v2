@@ -245,8 +245,6 @@ function SACAIG_verificarEstadoTransaccion(request_id, signature_id, signatory_i
 
 
 /************** VALIDACIÓN DE FORMULARIOS *************/
-
-
 // Función para validar todos los campos
 function validarCamposEnDiv(div) {
 
@@ -825,6 +823,65 @@ $(document).ready(function() {
     if (page == "contratacion-seguro-do-SACAIG") {
         updateClassesOnStep(pantallasConAside);
     }
+
+
+
+    //En el paso donde se asignan los herederos, verificamos que no se repitan identificadores y que el total de porcentajes sume 100%
+    // Validación al avanzar al paso 8
+    $('#sg-paso-8').click(function (event) {
+        let suma = 0;
+        let nifs = new Set();
+        let duplicado = false;
+
+        // Verificamos porcentajes
+        $('[id^="porc_benf_"]').each(function () {
+            const val = parseFloat($(this).val()) || 0;
+            suma += val;
+        });
+
+        // Verificamos duplicidad de NIFs
+        $('[id^="nif_benf_"]').each(function () {
+            const val = $(this).val().trim();
+
+            if (nifs.has(val)) {
+                duplicado = true;
+            } else {
+                nifs.add(val);
+            }
+        });
+
+        if (duplicado) {
+            event.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'DNI/NIE duplicado',
+                text: 'No puedes repetir el mismo DNI/NIE para más de un beneficiario.',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                document.getElementById('step-form-anim-12').style.display = '';
+                document.getElementById('step-form-anim-13').style.display = 'none';
+            });
+            return;
+        }
+
+        if (suma !== 100) {
+            event.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Error en los porcentajes',
+                text: `La suma total de los porcentajes debe ser exactamente 100%. Actualmente suma ${suma}%.`,
+                confirmButtonText: 'OK'
+            }).then(() => {
+                document.getElementById('step-form-anim-12').style.display = '';
+                document.getElementById('step-form-anim-13').style.display = 'none';
+            });
+            return;
+        }
+
+        // Si todo está correcto, el flujo continúa
+    });
+
+
 
 
 

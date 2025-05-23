@@ -30,18 +30,20 @@ define('SACAIG_PLUGIN_URL', plugins_url('/', __FILE__));
 
 define('SACAIG_TEMPLATE_LANDING_PRODUCTO', 'templates/landing-producto-template.php');
 define('SACAIG_TEMPLATE_EMAIL', 'templates/plantilla-email.php');
+define('SACAIG_PRODUCTO_NOMBRE', "Seguro de Accidentes");
 define('SACAIG_INSU_PRODUCT_ID', '2');
+
+
 
 /***
  * VARIABLES A REVISAR ANTES DE ACTIVAR EL PLUGIN*
  ***/
 define('SACAIG_SLUG_LANDING_PRODUCTO', 'seguros-de-accidentes');
-define('SACAIG_PRODUCT_ID_WORDPRESS', 1502);  //ID del post  en wordpress que corresponde con el desarrollo.
 define('SACAIG_CODIGO_MEDIADOR', 006530);
 define('SACAIG_IMAGEN_PLUGIN', SACAIG_PLUGIN_URL."/img/icono-acciedentes.svg");
-define('SACAIG_PRODUCTO_NOMBRE', "Seguro de Accidentes");
 
-//CONSTANTES DE LLEIDA NET PARA FIRMAR DIGITALMENTE
+
+//Constantes de lleidanet para la firma
 define('URL_API_ILEIDA_START_SACAIG', 'https://api.lleida.net/cs/v1/start_signature');
 define('URL_API_ILEIDA_GET_SACAIG', 'https://api.lleida.net/cs/v1/get_document');
 define('API_USER_ILEIDA_SACAIG', 'ibrok');

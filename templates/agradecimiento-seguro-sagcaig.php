@@ -16,19 +16,14 @@
 
     //registramos en Insuguru
     $respuesta_insuguru=insu_contratacion_insuguru($datos_transient, $datos_transient->INSU_WP_ARISE_RATE, null, null  , $signature_id);
-    error_log('respuesta_insuguru: '. json_encode($respuesta_insuguru));
-    
 
     //enviamos correo a la compañia con documento firmado
     $request_correo_compania=get_object_vars($datos_transient);
     $respuesta_correo_compania = SACAIG_enviar_correo_poliza_companias_callback_service($request_correo_compania);
-    error_log('respuesta_correo_compania: '. json_encode($respuesta_correo_compania));
-
 
     //envio de correo al cliente
     $respuesta_correo_cliente = SACAIG_enviar_correo_poliza_callback_service($request_correo_compania);
     
-    error_log('respuesta_correo_cliente: '. json_encode($respuesta_correo_cliente));
     }
     get_header();
 

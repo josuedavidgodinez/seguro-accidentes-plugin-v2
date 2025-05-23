@@ -20,25 +20,98 @@ $plans = [
 // Filas y valores de la tabla
 $rows = [
     'Garantías por fallecimiento' => [
-        ['text' => 'Fallecimiento por accidente', 'values' => ['150.000 €', '150.000 €', '150.000 €']],
-        ['text' => 'Fallecimiento de ambos cónyuges por accidente de circulación', 'values' => ['+50.000 €', '+50.000 €', '+50.000 €']],
-        ['text' => 'Fallecimiento por infarto de miocardio por accidente laboral', 'values' => ['100.000 €', '100.000 €', '100.000 €']],
-        ['text' => 'Indemnización por hijos dependientes', 'values' => ['100.000 €', '100.000 €', '100.000 €']],
-        ['text' => 'Indemnización diaria por hospitalización', 'values' => ['100.000 €', '100.000 €', '100.000 €']],
-        ['text' => 'Invalidez parcial', 'values' => ['150.000 €', '150.000 €', '150.000 €']],
-        ['text' => 'Accidentes en motos de cualquier cilindrada', 'values' => ['50 €', '50 €', '50 €']],
+        [
+            'text'   => 'Fallecimiento por accidente',
+            'values' => [
+                1 => '150.000 €',
+                2 => '250.000 €',
+                3 => '350.000 €',
+            ],
+        ],
+        [
+            'text'   => 'Fallecimiento de ambos cónyuges por accidente de circulación',
+            'values' => [
+                1 => '+50.000 €',
+                2 => '+50.000 €',
+                3 => '+50.000 €',
+            ],
+        ],
+        [
+            'text'   => 'Fallecimiento por infarto de miocardio por accidente laboral',
+            'values' => [
+                1 => '100.000 €',
+                2 => '100.000 €',
+                3 => '100.000 €',
+            ],
+        ],
     ],
     'Garantías por invalidez' => [
-        ['text' => 'Invalidez permanente absoluta por accidente', 'values' => ['150.000 €', '150.000 €', '150.000 €']],
-        ['text' => 'Invalidez permanente parcial por accidente (según baremo)', 'values' => ['+50.000 €', '+50.000 €', '+50.000 €']],
-        ['text' => 'Invalidez permanente absoluta por accidente de circulación', 'values' => ['100.000 €', '100.000 €', '100.000 €']],
-        ['text' => 'Invalidez parcial', 'values' => ['Incluida', 'Incluida', 'Incluida']],
+        [
+            'text'   => 'Invalidez permanente absoluta por accidente',
+            'values' => [
+                1 => '150.000 €',
+                2 => '250.000 €',
+                3 => '350.000 €',
+            ],
+        ],
+        [
+            'text'   => 'Invalidez permanente parcial por accidente (según baremo)',
+            'values' => [
+                1 => '150.000 €',
+                2 => '250.000 €',
+                3 => '350.000 €',
+            ],
+        ],
+        [
+            'text'   => 'Invalidez permanente absoluta por accidente de circulación',
+            'values' => [
+                1 => '200.000 €',
+                2 => '300.000 €',
+                3 => '400.000 €',
+            ],
+        ],
+        [
+            'text'   => 'Invalidez parcial',
+            'values' => [
+                1 => 'Incluida',
+                2 => 'Incluida',
+                3 => 'Incluida',
+            ],
+        ],
     ],
     'Otras garantías' => [
-        ['text' => 'Indemnización por hijos dependientes', 'values' => ['2.000 €', '2.000 €', '2.000 €']],
-        ['text' => 'Indemnización diaria por hospitalización', 'values' => ['50 €', '50 €', '50 €']],
-        ['text' => 'Reforma de la vivienda en caso de invalidez permanente por accidente', 'values' => ['5.000 €', '5.000 €', '5.000 €']],
-        ['text' => 'Accidentes en motos de cualquier cilindrada', 'values' => ['Incluida', 'Incluida', 'Incluida']],
+        [
+            'text'   => 'Indemnización por hijos dependientes',
+            'values' => [
+                1 => '2.000 €',
+                2 => '2.000 €',
+                3 => '2.000 €',
+            ],
+        ],
+        [
+            'text'   => 'Indemnización diaria por hospitalización',
+            'values' => [
+                1 => '50 €',
+                2 => '50 €',
+                3 => '50 €',
+            ],
+        ],
+        [
+            'text'   => 'Gastos de reforma de la vivienda en caso de invalidez permanente por accidente',
+            'values' => [
+                1 => '5.000 €',
+                2 => '5.000 €',
+                3 => '5.000 €',
+            ],
+        ],
+        [
+            'text'   => 'Accidentes en motos de cualquier cilindrada',
+            'values' => [
+                1 => 'Incluida',
+                2 => 'Incluida',
+                3 => 'Incluida',
+            ],
+        ],
     ],
 ];
 ?>
